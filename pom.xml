@@ -10,6 +10,7 @@
   <modules>
     <module>itstack-jvm-demo-01</module>
     <module>itstack-jvm-demo-02</module>
+    <module>itstack-jvm-demo-03</module>
   </modules>
   <packaging>pom</packaging>
 
