@@ -24,7 +24,7 @@ public class CompositeEntry implements Entry {
     private final List<Entry> entryList = new ArrayList<>();
 
     public CompositeEntry(String pathList) {
-        String[] paths = pathList.split(File.separator);
+        String[] paths = pathList.split(File.pathSeparator);
         for (String path : paths) {
             entryList.add(Entry.create(path));
         }
@@ -34,9 +34,10 @@ public class CompositeEntry implements Entry {
     public byte[] readClass(String className) throws IOException {
         for (Entry entry : entryList) {
             try {
-                return entry.readClass(className);
+                byte[] bytes = entry.readClass(className);
+                return bytes;
             } catch (Exception e) {
-                e.printStackTrace();
+
             }
         }
         throw new IOException("class not found " + className);

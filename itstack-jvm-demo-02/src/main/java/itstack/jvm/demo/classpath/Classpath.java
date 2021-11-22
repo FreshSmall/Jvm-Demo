@@ -77,13 +77,11 @@ public class Classpath {
         try {
             return bootstrapClasspath.readClass(className);
         } catch (IOException e) {
-            e.printStackTrace();
         }
         // [readClass] 扩展类路径
         try {
             return extensionClasspath.readClass(className);
         } catch (IOException e) {
-            e.printStackTrace();
         }
 
         // [readClass] 用户类路径

@@ -8,7 +8,7 @@ package itstack.jvm.demo;
 
 import itstack.jvm.demo.classpath.Classpath;
 
-import java.io.File;
+import java.util.Arrays;
 
 /**
  * @author yinchao
@@ -40,11 +40,14 @@ public class Main {
         String className = cmd.getMainClass().replace(".", "/");
         try {
             byte[] classData = cp.readClass(className);
-            System.out.println("classData:");
-            for (byte b : classData) {
+
+            System.out.println(Arrays.toString(classData));
+
+            System.out.println("classData：");
+            /*for (byte b : classData) {
                 // 16进制输出
-                System.out.println(String.format("%02x", b & 0xff) + " ");
-            }
+                System.out.print(String.format("%02x", b & 0xff) + " ");
+            }*/
         } catch (Exception e) {
             System.out.println("Could not find or load main class " + cmd.getMainClass());
             e.printStackTrace();
