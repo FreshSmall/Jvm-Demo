@@ -36,4 +36,10 @@ public class ZipEntry implements Entry {
             return Files.readAllBytes(zipFs.getPath(className));
         }
     }
+
+    @Override
+    public String toString() {
+        return this.absolutePath.toString();
+    }
+
 }

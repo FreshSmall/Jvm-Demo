@@ -21,7 +21,21 @@ public class LineNumberTableAttribute implements AttributeInfo {
 
     @Override
     public void readInfo(ClassReader reader) {
+        int lineNumberTableLength = reader.readUint16();
+        this.lineNumberTable = new LineNumberTableEntry[lineNumberTableLength];
+        for (int i = 0; i < lineNumberTableLength; i++) {
+            lineNumberTable[i] = new LineNumberTableEntry(reader.readUint16(), reader.readUint16());
+        }
+    }
 
+    public int getLineNumber(int pc) {
+        for (int i = this.lineNumberTable.length - 1; i >= 0; i--) {
+            LineNumberTableEntry entry = this.lineNumberTable[i];
+            if (pc >= entry.startPC){
+                return entry.lineNumber;
+            }
+        }
+        return -1;
     }
 
     static class LineNumberTableEntry {

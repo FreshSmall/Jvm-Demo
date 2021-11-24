@@ -31,8 +31,8 @@ public class ConstantMemberRefInfo implements ConstantInfo {
 
     @Override
     public void readInfo(ClassReader reader) {
-        this.classIdx = reader.readUnit16();
-        this.nameAndTypeIdx = reader.readUnit16();
+        this.classIdx = reader.readUint16();
+        this.nameAndTypeIdx = reader.readUint16();
     }
 
     @Override

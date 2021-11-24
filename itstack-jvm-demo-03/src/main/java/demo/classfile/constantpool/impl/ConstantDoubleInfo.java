@@ -21,7 +21,7 @@ public class ConstantDoubleInfo implements ConstantInfo {
 
     @Override
     public void readInfo(ClassReader reader) {
-        this.val = reader.readUnit64TDouble();
+        this.val = reader.readUint64TDouble();
     }
 
     @Override

@@ -6,7 +6,6 @@
 
 package demo.classfile.constantpool;
 
-import com.sun.org.apache.bcel.internal.generic.RETURN;
 import demo.classfile.ClassReader;
 import demo.classfile.constantpool.impl.ConstantClassInfo;
 import demo.classfile.constantpool.impl.ConstantNameAndTypeInfo;
@@ -27,10 +26,12 @@ public class ConstantPool {
     private final int siz;
 
     public ConstantPool(ClassReader reader) {
-        siz = reader.readUnit16();
+        siz = reader.readUint16();
         constantInfos = new ConstantInfo[siz];
-        for (int i = 0; i < siz; i++) {
-            constantInfos[i] = ConstantInfo.readConstantInfo(reader, this);
+        for (int i = 1; i < siz; i++) {
+
+            constantInfos[i] = ConstantInfo.readConstantInfo(reader, this, i);
+
             switch (constantInfos[i].tag()) {
                 case ConstantInfo.CONSTANT_TAG_DOUBLE:
                 case ConstantInfo.CONSTANT_TAG_LONG:
@@ -69,5 +70,4 @@ public class ConstantPool {
     public int getSiz() {
         return siz;
     }
-
 }

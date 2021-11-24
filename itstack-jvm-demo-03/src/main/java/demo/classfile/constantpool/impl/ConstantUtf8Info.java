@@ -21,7 +21,7 @@ public class ConstantUtf8Info implements ConstantInfo {
 
     @Override
     public void readInfo(ClassReader reader) {
-        int length = reader.readUnit16();
+        int length = reader.readUint16();
         byte[] bytes = reader.readBytes(length);
         this.str = new String(bytes);
     }

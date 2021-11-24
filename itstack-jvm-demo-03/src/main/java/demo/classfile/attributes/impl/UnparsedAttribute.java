@@ -30,4 +30,9 @@ public class UnparsedAttribute implements AttributeInfo {
     public void readInfo(ClassReader reader) {
         this.info = reader.readBytes(this.length);
     }
+
+    public byte[] info(){
+        return this.info;
+    }
+
 }

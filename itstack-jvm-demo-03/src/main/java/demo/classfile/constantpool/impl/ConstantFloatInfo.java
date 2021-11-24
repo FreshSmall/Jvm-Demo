@@ -21,7 +21,7 @@ public class ConstantFloatInfo implements ConstantInfo {
 
     @Override
     public void readInfo(ClassReader reader) {
-        this.val = reader.readUnit64TFloat();
+        this.val = reader.readUint64TFloat();
     }
 
     @Override

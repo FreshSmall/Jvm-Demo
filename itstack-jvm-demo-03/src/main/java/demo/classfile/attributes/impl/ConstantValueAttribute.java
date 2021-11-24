@@ -22,7 +22,7 @@ public class ConstantValueAttribute implements AttributeInfo {
 
     @Override
     public void readInfo(ClassReader reader) {
-        this.constantValueIdx = reader.readUnit16();
+        this.constantValueIdx = reader.readUint16();
     }
 
     public int constantValueIdx() {

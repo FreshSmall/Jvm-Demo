@@ -21,7 +21,7 @@ public class ConstantLongInfo implements ConstantInfo {
 
     @Override
     public void readInfo(ClassReader reader) {
-        this.val = reader.readUnit64TLong();
+        this.val = reader.readUint64TLong();
     }
 
     @Override

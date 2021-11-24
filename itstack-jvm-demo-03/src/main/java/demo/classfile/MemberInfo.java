@@ -8,6 +8,7 @@ package demo.classfile;
 
 import demo.classfile.attributes.AttributeInfo;
 import demo.classfile.attributes.impl.CodeAttribute;
+import demo.classfile.attributes.impl.ConstantValueAttribute;
 import demo.classfile.constantpool.ConstantPool;
 
 /**
@@ -26,14 +27,14 @@ public class MemberInfo {
 
     private MemberInfo(ClassReader reader, ConstantPool constantPool) {
         this.constantPool = constantPool;
-        this.accessFlags = reader.readUnit16();
-        this.nameIdx = reader.readUnit16();
-        this.descriptorIdx = reader.readUnit16();
+        this.accessFlags = reader.readUint16();
+        this.nameIdx = reader.readUint16();
+        this.descriptorIdx = reader.readUint16();
         this.attributeInfos = AttributeInfo.readAttributes(reader, constantPool);
     }
 
     static MemberInfo[] readMembers(ClassReader reader, ConstantPool constantPool) {
-        int fieldCount = reader.readUnit16();
+        int fieldCount = reader.readUint16();
         MemberInfo[] fields = new MemberInfo[fieldCount];
         for (int i = 0; i < fieldCount; i++) {
             fields[i] = new MemberInfo(reader, constantPool);
@@ -57,6 +58,15 @@ public class MemberInfo {
         for (AttributeInfo attributeInfo : attributeInfos) {
             if (attributeInfo instanceof CodeAttribute) {
                 return (CodeAttribute) attributeInfo;
+            }
+        }
+        return null;
+    }
+
+    public ConstantValueAttribute ConstantValueAttribute() {
+        for (AttributeInfo attrInfo : attributeInfos) {
+            if (attrInfo instanceof ConstantValueAttribute) {
+                return (ConstantValueAttribute) attrInfo;
             }
         }
         return null;

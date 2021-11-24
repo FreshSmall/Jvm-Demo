@@ -31,7 +31,7 @@ public class ConstantClassInfo implements ConstantInfo {
 
     @Override
     public void readInfo(ClassReader reader) {
-        this.nameIdx = reader.readUnit16();
+        this.nameIdx = reader.readUint16();
     }
 
     @Override

@@ -49,14 +49,14 @@ public interface ConstantInfo {
 
     int tag();
 
-    static ConstantInfo readConstantInfo(ClassReader reader, ConstantPool constantPool) {
-        int tag = reader.readUnit8();
-        ConstantInfo constantInfo = newConstantInfo(tag, constantPool);
+    static ConstantInfo readConstantInfo(ClassReader reader, ConstantPool constantPool, int count) {
+        int tag = reader.readUint8();
+        ConstantInfo constantInfo = newConstantInfo(tag, constantPool, count);
         constantInfo.readInfo(reader);
         return constantInfo;
     }
 
-    static ConstantInfo newConstantInfo(int tag, ConstantPool constantPool) {
+    static ConstantInfo newConstantInfo(int tag, ConstantPool constantPool, int count) {
         switch (tag) {
             case CONSTANT_TAG_INTEGER:
                 return new ConstantIntegerInfo();
@@ -87,6 +87,9 @@ public interface ConstantInfo {
             case CONSTANT_TAG_INVOKEDYNAMIC:
                 return new ConstantInvokeDynamicInfo();
             default:
+                System.out
+                    .println(tag + "constantPool" + constantPool.getClass() + ",count:" + count);
+                System.out.println(constantPool.getConstantInfos()[count]);
                 throw new ClassFormatError("constant pool tag");
         }
     }

@@ -25,50 +25,50 @@ public class ClassReader {
         this.data = data;
     }
 
-    // u1
-    public int readUnit8() {
+    //u1
+    public int readUint8() {
         byte[] val = readByte(1);
         return byte2int(val);
     }
 
-    // u2
-    public int readUnit16() {
+    //u2
+    public int readUint16() {
         byte[] val = readByte(2);
         return byte2int(val);
     }
 
-    // u4
+    //u4
     public long readUint32() {
         byte[] val = readByte(4);
         String str_hex = new BigInteger(1, val).toString(16);
         return Long.parseLong(str_hex, 16);
     }
 
-    public int readUnit32TInteger() {
+    public int readUint32TInteger(){
         byte[] val = readByte(4);
         return new BigInteger(1, val).intValue();
     }
 
-    public float readUnit64TFloat() {
+    public float readUint64TFloat() {
         byte[] val = readByte(8);
         return new BigInteger(1, val).floatValue();
     }
 
-    public long readUnit64TLong() {
+    public long readUint64TLong() {
         byte[] val = readByte(8);
         return new BigInteger(1, val).longValue();
     }
 
-    public double readUnit64TDouble() {
+    public double readUint64TDouble() {
         byte[] val = readByte(8);
         return new BigInteger(1, val).doubleValue();
     }
 
-    public int[] readUnit16s() {
-        int n = this.readUnit16();
+    public int[] readUint16s() {
+        int n = this.readUint16();
         int[] s = new int[n];
         for (int i = 0; i < n; i++) {
-            s[i] = this.readUnit16();
+            s[i] = this.readUint16();
         }
         return s;
     }

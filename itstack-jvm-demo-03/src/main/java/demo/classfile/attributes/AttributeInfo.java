@@ -34,7 +34,7 @@ public interface AttributeInfo {
     void readInfo(ClassReader reader);
 
     static AttributeInfo[] readAttributes(ClassReader reader, ConstantPool constantPool) {
-        int attributesCount = reader.readUnit16();
+        int attributesCount = reader.readUint16();
         AttributeInfo[] attributeInfos = new AttributeInfo[attributesCount];
         for (int i = 0; i < attributesCount; i++) {
             attributeInfos[i] = readAttribute(reader, constantPool);
@@ -43,9 +43,9 @@ public interface AttributeInfo {
     }
 
     static AttributeInfo readAttribute(ClassReader reader, ConstantPool constantPool) {
-        int attrNameIdx = reader.readUnit16();
+        int attrNameIdx = reader.readUint16();
         String attrName = constantPool.getUTF8(attrNameIdx);
-        int attrLen = reader.readUnit32TInteger();
+        int attrLen = reader.readUint32TInteger();
         AttributeInfo attrInfo = newAttributeInfo(attrName, attrLen, constantPool);
         attrInfo.readInfo(reader);
         return attrInfo;

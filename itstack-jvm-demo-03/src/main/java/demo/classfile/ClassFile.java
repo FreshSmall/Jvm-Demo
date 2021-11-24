@@ -9,8 +9,6 @@ package demo.classfile;
 import demo.classfile.attributes.AttributeInfo;
 import demo.classfile.constantpool.ConstantPool;
 
-import javax.management.Attribute;
-
 /**
  * @author yinchao
  * @description
@@ -35,24 +33,25 @@ public class ClassFile {
         this.readAndCheckMagic(reader);
         this.readAndCheckVersion(reader);
         this.constantPool = this.readConstantPool(reader);
-        this.accessFlags = reader.readUnit16();
-        this.thisClassIdx = reader.readUnit16();
-        this.supperClassIdx = reader.readUnit16();
-        this.interfaces = reader.readUnit16s();
+        this.accessFlags = reader.readUint16();
+        this.thisClassIdx = reader.readUint16();
+        this.supperClassIdx = reader.readUint16();
+        this.interfaces = reader.readUint16s();
         this.fields = MemberInfo.readMembers(reader, constantPool);
+        this.methods = MemberInfo.readMembers(reader, constantPool);
         this.attributes = AttributeInfo.readAttributes(reader, constantPool);
     }
 
     private void readAndCheckMagic(ClassReader reader) {
         long magic = reader.readUint32();
-        if (magic != (0xCAFEBABE & 0xffffffffL)) {
+        if (magic != (0xCAFEBABE & 0x0FFFFFFFFL)) {
             throw new ClassFormatError("magic!");
         }
     }
 
     private void readAndCheckVersion(ClassReader reader) {
-        this.minorVersion = reader.readUnit16();
-        this.majorVersion = reader.readUnit16();
+        this.minorVersion = reader.readUint16();
+        this.majorVersion = reader.readUint16();
         switch (this.majorVersion) {
             case 45:
                 return;

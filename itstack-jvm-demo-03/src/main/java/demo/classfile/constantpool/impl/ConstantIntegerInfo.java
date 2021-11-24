@@ -21,7 +21,7 @@ public class ConstantIntegerInfo implements ConstantInfo {
 
     @Override
     public void readInfo(ClassReader reader) {
-        this.val = reader.readUnit32TInteger();
+        this.val = reader.readUint32TInteger();
     }
 
     @Override

@@ -21,11 +21,10 @@ public class LocalVariableTypeTableAttribute implements AttributeInfo {
 
     @Override
     public void readInfo(ClassReader reader) {
-        int localVariableTypeTableLength = reader.readUnit16();
+        int localVariableTypeTableLength = reader.readUint16();
         this.localVariableTypeTable = new LocalVariableTypeTableEntry[localVariableTypeTableLength];
         for (int i = 0; i < localVariableTypeTableLength; i++) {
-            this.localVariableTypeTable[i] = new LocalVariableTypeTableEntry(reader.readUnit16(),
-                reader.readUnit16(), reader.readUnit16(), reader.readUnit16(), reader.readUnit16());
+            this.localVariableTypeTable[i] = new LocalVariableTypeTableEntry(reader.readUint16(), reader.readUint16(), reader.readUint16(), reader.readUint16(), reader.readUint16());
         }
     }
 

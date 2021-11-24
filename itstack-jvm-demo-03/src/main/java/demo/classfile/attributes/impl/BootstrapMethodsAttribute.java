@@ -21,10 +21,10 @@ public class BootstrapMethodsAttribute implements AttributeInfo {
 
     @Override
     public void readInfo(ClassReader reader) {
-        int bootstrapMethodNum = reader.readUnit16();
+        int bootstrapMethodNum = reader.readUint16();
         bootstrapMethods = new BootstrapMethod[bootstrapMethodNum];
         for (int i = 0; i < bootstrapMethodNum; i++) {
-            bootstrapMethods[i] = new BootstrapMethod(reader.readUnit16(), reader.readUnit16s());
+            bootstrapMethods[i] = new BootstrapMethod(reader.readUint16(), reader.readUint16s());
         }
     }
 
@@ -34,8 +34,8 @@ public class BootstrapMethodsAttribute implements AttributeInfo {
         int[] bootstrapArguments;
 
         BootstrapMethod(int bootstrapMethodRef, int[] bootstrapArguments) {
-            this.bootstrapArguments = bootstrapArguments;
             this.bootstrapMethodRef = bootstrapMethodRef;
+            this.bootstrapArguments = bootstrapArguments;
         }
     }
 }

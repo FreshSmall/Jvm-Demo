@@ -48,7 +48,7 @@ public class Classpath {
         extensionClasspath = new WildcardEntry(jreExtPath);
     }
 
-    private String jetJreDir(String jreOption) {
+    private static String jetJreDir(String jreOption) {
         if (jreOption != null && Files.exists(Paths.get(jreOption))) {
             return jreOption;
         }

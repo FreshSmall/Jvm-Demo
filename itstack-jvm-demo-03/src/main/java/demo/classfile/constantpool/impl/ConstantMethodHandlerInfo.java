@@ -22,8 +22,8 @@ public class ConstantMethodHandlerInfo implements ConstantInfo {
 
     @Override
     public void readInfo(ClassReader reader) {
-        this.referenceKind = reader.readUnit8();
-        this.referenceIndex = reader.readUnit16();
+        this.referenceKind = reader.readUint8();
+        this.referenceIndex = reader.readUint16();
     }
 
     @Override

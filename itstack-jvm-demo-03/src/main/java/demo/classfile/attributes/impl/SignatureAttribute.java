@@ -27,7 +27,7 @@ public class SignatureAttribute implements AttributeInfo {
 
     @Override
     public void readInfo(ClassReader reader) {
-        this.signatureIdx = reader.readUnit16();
+        this.signatureIdx = reader.readUint16();
     }
 
     public String signature() {
