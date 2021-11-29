@@ -7,9 +7,15 @@
 package demo;
 
 
+import demo.classfile.ClassFile;
+import demo.classfile.MemberInfo;
+import demo.classpath.Classpath;
 import demo.rtda.Frame;
 import demo.rtda.LocalVars;
 import demo.rtda.OperandStack;
+
+import java.io.IOException;
+import java.util.Calendar;
 
 /**
  * @author yinchao
@@ -34,24 +40,43 @@ public class Main {
     }
 
     private static void startJVM(Cmd cmd) {
-        Frame frame = new Frame(100,100);
-        test_localVars(frame.localVars());
-        test_operandStack(frame.operandStack());
+        Classpath classpath = new Classpath(cmd.jre, cmd.classpath);
+        System.out
+            .printf("classpath:%s args:%s\n", classpath, cmd.getMainClass(), cmd.getAppArgs());
+        String className = cmd.getMainClass().replace(".", "/");
+        ClassFile classFile = loadClass(className, classpath);
+        MemberInfo mainMethod = getMainMethod(classFile);
+        if (null == mainMethod) {
+            System.out.println("Main method not found in class" + cmd.classpath);
+            return;
+        }
+        new Interpret(mainMethod);
     }
 
-    private static void test_operandStack(OperandStack operandStack) {
-        operandStack.pushInt(100);
-        operandStack.pushInt(-100);
-        operandStack.pushRef(null);
-        System.out.println(operandStack.popRef());
-        System.out.println(operandStack.popInt());
+    private static ClassFile loadClass(String className, Classpath cp) {
+        try {
+            byte[] classData = cp.readClass(className);
+            return new ClassFile(classData);
+        } catch (IOException e) {
+            System.out.println("Could not find or load main class" + className);
+            e.printStackTrace();
+        }
+        return null;
     }
 
-    private static void test_localVars(LocalVars localVars) {
-        localVars.setInt(0,100);
-        localVars.setInt(1,-100);
-        System.out.println(localVars.getInt(0));
-        System.out.println(localVars.getInt(1));
+    // 找到主函数入口方法
+    private static MemberInfo getMainMethod(ClassFile cf) {
+        if (null == cf) {
+            return null;
+        }
+        MemberInfo[] methods = cf.methods();
+        for (MemberInfo m : methods) {
+            if ("main".equals(m.name()) && "([Ljava/lang/String;)V".equals(m.description())) {
+                return m;
+            }
+        }
+        return null;
     }
+
 
 }
