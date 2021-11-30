@@ -52,11 +52,7 @@ public class Interpret {
             }
             inst.fetchOperands(reader);
             frame.setNextPc(reader.pc());
-            System.out.println(
-                "寄存器（指令）：" + byteToHexString(new byte[]{opcode}) + "->" + inst.getClass()
-                    .getSimpleName() + "=> 局部变量表：" + JSON
-                    .toJSONString(frame.localVars().getSlots()) + "操作数栈：" + JSON
-                    .toJSONString(frame.operandStack().getSlots()));
+            System.out.println("寄存器(指令)：" + byteToHexString(new byte[]{opcode}) + " -> " + inst.getClass().getSimpleName() + " => 局部变量表：" + JSON.toJSONString(frame.localVars().getSlots()) + " 操作数栈：" + JSON.toJSONString(frame.operandStack().getSlots()));
             inst.execute(frame);
         }
     }
@@ -74,6 +70,4 @@ public class Interpret {
         }
         return sb.toString();
     }
-
-
 }

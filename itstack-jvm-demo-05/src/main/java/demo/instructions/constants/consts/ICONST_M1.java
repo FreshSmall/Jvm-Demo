@@ -4,16 +4,21 @@
  * Proprietary and confidential
  */
 
-package demo.instructions.comparisons.nop;
+package demo.instructions.constants.consts;
 
 import demo.instructions.base.InstructionNoOperands;
+import demo.rtda.Frame;
 
 /**
  * @author yinchao
  * @description
  * @team wuhan operational dev.
- * @date 2021/11/29 17:52
+ * @date 2021/11/30 16:55
  **/
-public class NOP extends InstructionNoOperands {
+public class ICONST_M1 extends InstructionNoOperands {
 
+    @Override
+    public void execute(Frame frame) {
+        frame.operandStack().pushInt(-1);
+    }
 }
