@@ -13,6 +13,7 @@
     <module>itstack-jvm-demo-03</module>
       <module>itstack-jvm-demo-04</module>
       <module>itstack-jvm-demo-05</module>
+      <module>itstack-jvm-demo-06</module>
   </modules>
   <packaging>pom</packaging>
 
