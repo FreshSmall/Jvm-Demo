@@ -14,7 +14,6 @@ package demo.rtda;
  **/
 public class Slot {
 
-    int num;
-    Object ref;
-
+    public int num;
+    public Object ref;
 }
